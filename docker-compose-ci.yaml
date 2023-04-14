@@ -1,22 +1,20 @@
 version: '3.3'
-
+#Проверка9
 services:
   app:
-#    image:
+#    image: ${IMAGE_TAG}:$GITHUB_REF_NAME-$GITHUB_RUN_ID
     ports:
       - 25000:25000
     depends_on:
       - db
     environment:
-      - DB_USER=db_user
-      - DB_PASSWORD=db_password
-      - DB_NAME=db_name
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
       - DB_HOST=db
   db:
     image: postgres
     environment:
-      - POSTGRES_USER=db_user
-      - POSTGRES_PASSWORD=db_password
-      - POSTGRES_DB=db_name
-    ports:
-      - 5436:5432
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}

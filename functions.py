@@ -1,30 +1,24 @@
-import re
-from typing import Any, Iterable, Iterator, Set, List
+from typing import Iterable
 
 
-def filter_query(value: str, data: Iterable[str]) -> Iterator[str]:
-    return filter(lambda x: value in x, data)
+def filter_query(value: str, data: Iterable[str]):
+    return filter(lambda item: value in item, data)
 
 
-def unique_query(data: Iterable[str], *args: Any, **kwargs: Any) -> Set[str]:
+def unique_query(data, *args, **kwargs):
     return set(data)
 
 
-def limit_query(value: str, data: Iterable[str]) -> List[str]:
-    limit: int = int(value)
+def limit_query(value, data):
+    limit = int(value)
     return list(data)[:limit]
 
 
-def map_query(value: str, data: Iterable[str]) -> Iterator[str]:
-    col_number = int(value)
-    return map(lambda x: x.split(' ')[col_number], data)
+def map_query(value, data):
+    column = int(value)
+    return map(lambda item: item.split(' ')[column], data)
 
 
-def sort_query(value: str, data: Iterable[str]) -> List[str]:
+def sort_query(value, data):
     reverse = value == 'desc'
     return sorted(data, reverse=reverse)
-
-
-def regex_query(value: str, data: Iterable[str]) -> Iterator[str]:
-    pattern = re.compile(value)
-    return filter(lambda x: re.search(pattern, x), data)
